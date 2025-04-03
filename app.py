@@ -50,7 +50,7 @@ data = {
     
 items = ["ZamZam","Dates","Tasbih","Miswak","Topi"]
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1,2])
 
 with col1:
     st.header("Price List of Items")
