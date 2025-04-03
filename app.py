@@ -1,13 +1,14 @@
 import streamlit as st
 import pandas as pd
 
-def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets):
+def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets):
     prices = {
         "Dates": {"Ajwa": 2, "Kalmi": 2, "Sukri": 1, "Medjool": 3},
         "Tasbih" : {"Type 1": 8, "Type 2": 10, "Type 3": 12, "Type 4": 14},
         "Miswak" : {"Type 1": 8, "Type 2": 10, "Type 3": 12, "Type 4": 14},
         "Topi" : {"Type 1": 10, "Type 2": 15, "Type 3": 20, "Type 4": 25},
-        "ZamZam" : {"100 ml":15, "50 ml" : 10}
+        "ZamZam" : {"100 ml":15, "50 ml" : 10},
+        "Mat" : {"Type 1": 120, "Type 2": 150, "Type 3": 200, "Type 4": 250}
     }
     
     total_cost = 0
@@ -21,6 +22,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets):
         total_cost += prices["Topi"][item] * quantity
     for item, quantity in zamzam.items():
         total_cost += prices["ZamZam"][item] * quantity
+    for item, quantity in mat.items():
+        total_cost += prices["Mat"][item] * quantity
     total_cost += 50
     return total_cost * num_packets
 
@@ -46,10 +49,14 @@ data = {
     "Topi" : {
         "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
         "Price per Unit (Rs)": [10, 15, 20, 25]
+    },
+    "Mat" : {
+        "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
+        "Price per Unit (Rs)": [120, 150, 200, 250]
     }
 }
     
-items = ["ZamZam","Dates","Tasbih","Miswak","Topi"]
+items = ["ZamZam","Dates","Tasbih","Miswak","Topi","Mat"]
 
 col1, col2 = st.columns([1,2],gap="medium",border=True)
 
@@ -70,9 +77,10 @@ with col2:
     tasbeeh = {st.selectbox("Select Tasbeeh Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Tasbeeh", min_value=0, step=1)}
     miswak = {st.selectbox("Select Miswak Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Miswak", min_value=0, step=1)}
     topi = {st.selectbox("Select Topi Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Topi", min_value=0, step=1)}
+    mat = {st.selectbox("Select Prayer Mat Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Mats", min_value=0, step=1)}
 
     num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1)
 
     if st.button("Calculate Total Cost"):
-        total_cost = calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets)
-        st.success(f"Total Cost: Rs {total_cost}")
+        total_cost = calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets)
+        st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
