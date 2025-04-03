@@ -24,20 +24,37 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets):
 st.title("Hajj/Umrah Gift Cost Calculator")
 
 data = {
-    "Item": ["ZamZam","Dates", "Dates", "Dates", "Dates", "Tasbeeh", "Tasbeeh", "Tasbeeh", "Tasbeeh",
-             "Miswak", "Miswak", "Miswak", "Miswak", "Topi", "Topi", "Topi", "Topi"],
-    "Type": ["ZamZam", "Ajwa", "Kalmi", "Sukri", "Medjool", "Type 1", "Type 2", "Type 3", "Type 4",
-             "Type 1", "Type 2", "Type 3", "Type 4", "Type 1", "Type 2", "Type 3", "Type 4"],
-    "Price per Unit (Rs)": [10, 2, 2, 1, 3, 10, 12, 8, 14, 10, 12, 8, 14, 10, 15, 20, 25]
+    "ZamZam" : {
+        "Type": ["50 ml", "100 ml"],
+        "Price per Unit (Rs)": [10, 15]
+    },
+    "Dates" : {
+        "Type": [ "Ajwa", "Kalmi", "Sukri", "Medjool"],
+        "Price per Unit (Rs)": [2, 2, 1, 3]
+    },
+    "Tasbih" : {
+        "Type":  ["Type 1", "Type 2", "Type 3", "Type 4"],
+        "Price per Unit (Rs)": [10, 12, 8, 14]
+    },
+    "Miswak" : {
+        "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
+        "Price per Unit (Rs)": [10, 12, 8, 14]
+    },
+    "Topi" : {
+        "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
+        "Price per Unit (Rs)": [10, 15, 20, 25]
+    }
 }
+    
+items = ["ZamZam","Dates","Tasbih","Miswak","Topi"]
+st.subheader("Price List of Items")
 
-# Convert to DataFrame
-df = pd.DataFrame(data)
-df = df.groupby(["Item","Type","Price per Unit (Rs)"])
-
-# Display in Streamlit
-st.title("Price List of Items")
-st.table(df)
+for i in range(len(items)):
+    d = data[items[i]]
+    df = pd.DataFrame(data)
+    # Convert to DataFrame
+    st.subheader(items[i])
+    st.table(df)
 
 st.header("Select Items for Each Packet")
 dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): st.number_input("Number of Dates", min_value=0, step=1)}
@@ -49,5 +66,5 @@ topi = {st.selectbox("Select Topi Type", ["Topi Type 1", "Topi Type 2", "Topi Ty
 num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1)
 
 if st.button("Calculate Total Cost"):
-    total_cost = calculate_total_cost(dates, tasbeeh, miswak, topi, num_packets)
+    total_cost = calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets)
     st.success(f"Total Cost: Rs {total_cost}")
