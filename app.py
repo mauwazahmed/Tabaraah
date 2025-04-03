@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import math
 
 def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets):
     prices = {
@@ -24,8 +25,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets)
         total_cost += prices["ZamZam"][item] * quantity
     for item, quantity in mat.items():
         total_cost += prices["Mat"][item] * quantity
-    total_cost += 50
-    return total_cost * num_packets
+    total_cost += 45
+    return total_cost * num_packets * 1.18
 
 st.title("Hajj/Umrah Gift Cost Calculator")
 
