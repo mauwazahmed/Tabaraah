@@ -56,7 +56,7 @@ with col1:
     st.header("Price List of Items")
     for i in range(len(items)):
         d = data[items[i]]
-        df = pd.DataFrame(d,index=False)
+        df = pd.DataFrame(d)
         # Convert to DataFrame
         st.subheader(items[i])
         # st.table(df)
