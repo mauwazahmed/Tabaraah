@@ -26,7 +26,7 @@ st.title("Hajj/Umrah Gift Cost Calculator")
 data = {
     "Item": ["ZamZam","Dates", "Dates", "Dates", "Dates", "Tasbeeh", "Tasbeeh", "Tasbeeh", "Tasbeeh",
              "Miswak", "Miswak", "Miswak", "Miswak", "Topi", "Topi", "Topi", "Topi"],
-    "Type": ["Ajwa", "Kalmi", "Sukri", "Medjool", "Type 1", "Type 2", "Type 3", "Type 4",
+    "Type": ["ZamZam", "Ajwa", "Kalmi", "Sukri", "Medjool", "Type 1", "Type 2", "Type 3", "Type 4",
              "Type 1", "Type 2", "Type 3", "Type 4", "Type 1", "Type 2", "Type 3", "Type 4"],
     "Price per Unit (Rs)": [10, 2, 2, 1, 3, 10, 12, 8, 14, 10, 12, 8, 14, 10, 15, 20, 25]
 }
