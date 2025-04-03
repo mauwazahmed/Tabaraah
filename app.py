@@ -21,6 +21,7 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets):
         total_cost += prices["Topi"][item] * quantity
     for item, quantity in zamzam.items():
         total_cost += prices["ZamZam"][item] * quantity
+    total_cost += 50
     return total_cost * num_packets
 
 st.title("Hajj/Umrah Gift Cost Calculator")
