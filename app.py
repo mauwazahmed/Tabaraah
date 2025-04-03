@@ -32,7 +32,7 @@ data = {
 }
 
 # Convert to DataFrame
-df = pd.DataFrame(data, index="Type")
+df = pd.DataFrame(data)
 df = df.groupby(["Item","Type","Price per Unit (Rs)"])
 
 # Display in Streamlit
