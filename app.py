@@ -3,22 +3,24 @@ import pandas as pd
 
 def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, num_packets):
     prices = {
-        "Ajwa": 2, "Kalmi": 2, "Sukri": 1, "Medjool": 3,
-        "Tasbeeh Type 1": 10, "Tasbeeh Type 2": 12, "Tasbeeh Type 3": 8, "Tasbeeh Type 4": 14,
-        "Miswak Type 1": 10, "Miswak Type 2": 12, "Miswak Type 3": 8, "Miswak Type 4": 14,
-        "Topi Type 1": 10, "Topi Type 2": 15, "Topi Type 3": 20, "Topi Type 4": 25,
+        "Dates": {"Ajwa": 2, "Kalmi": 2, "Sukri": 1, "Medjool": 3},
+        "Tasbih" : {"Type 1": 8, "Type 2": 10, "Type 3": 12, "Type 4": 14},
+        "Miswak" : {"Type 1": 8, "Type 2": 10, "Type 3": 12, "Type 4": 14},
+        "Topi" : {"Type 1": 10, "Type 2": 15, "Type 3": 20, "Type 4": 25},
+        "ZamZam" : {"100 ml":15, "50 ml" : 10}
     }
     
     total_cost = 0
     for item, quantity in dates.items():
-        total_cost += prices[item] * quantity
+        total_cost += prices["Dates"][item] * quantity
     for item, quantity in tasbeeh.items():
-        total_cost += prices[item] * quantity
+        total_cost += prices["Tasbih"][item] * quantity
     for item, quantity in miswak.items():
-        total_cost += prices[item] * quantity
+        total_cost += prices["Miswak"][item] * quantity
     for item, quantity in topi.items():
-        total_cost += prices[item] * quantity
-    total_cost += zamzam*quantity
+        total_cost += prices["Topi"][item] * quantity
+    for item, quantity in zamzam.items():
+        total_cost += prices["ZamZam"][item] * quantity
     return total_cost * num_packets
 
 st.title("Hajj/Umrah Gift Cost Calculator")
@@ -34,11 +36,11 @@ data = {
     },
     "Tasbih" : {
         "Type":  ["Type 1", "Type 2", "Type 3", "Type 4"],
-        "Price per Unit (Rs)": [10, 12, 8, 14]
+        "Price per Unit (Rs)": [8, 10, 12, 14]
     },
     "Miswak" : {
         "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
-        "Price per Unit (Rs)": [10, 12, 8, 14]
+        "Price per Unit (Rs)": [8, 10, 12, 14]
     },
     "Topi" : {
         "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
@@ -58,10 +60,10 @@ for i in range(len(items)):
 
 st.header("Select Items for Each Packet")
 dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): st.number_input("Number of Dates", min_value=0, step=1)}
-zamzam = st.number_input("Number of ZamZam bottles", min_value=0, step=1)
-tasbeeh = {st.selectbox("Select Tasbeeh Type", ["Tasbeeh Type 1", "Tasbeeh Type 2", "Tasbeeh Type 3", "Tasbeeh Type 4"]): st.number_input("Number of Tasbeeh", min_value=0, step=1)}
-miswak = {st.selectbox("Select Miswak Type", ["Miswak Type 1", "Miswak Type 2", "Miswak Type 3", "Miswak Type 4"]): st.number_input("Number of Miswak", min_value=0, step=1)}
-topi = {st.selectbox("Select Topi Type", ["Topi Type 1", "Topi Type 2", "Topi Type 3", "Topi Type 4"]): st.number_input("Number of Topi", min_value=0, step=1)}
+zamzam = {st.selectbox("Select Quantity", ["50 ml", "100 ml"]): st.number_input("Number of Bottles", min_value=0, step=1)}
+tasbeeh = {st.selectbox("Select Tasbeeh Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Tasbeeh", min_value=0, step=1)}
+miswak = {st.selectbox("Select Miswak Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Miswak", min_value=0, step=1)}
+topi = {st.selectbox("Select Topi Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Topi", min_value=0, step=1)}
 
 num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1)
 
