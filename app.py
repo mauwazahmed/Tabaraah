@@ -59,7 +59,8 @@ with col1:
         df = pd.DataFrame(d,index=False)
         # Convert to DataFrame
         st.subheader(items[i])
-        st.table(df)
+        # st.table(df)
+        st.dataframe(df,hide_index=True)
 
 with col2:
     st.header("Select Items for Each Packet")
