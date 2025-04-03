@@ -22,6 +22,21 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, num_packets):
 
 st.title("Hajj/Umrah Gift Cost Calculator")
 
+data = {
+    "Item": ["Dates", "Dates", "Dates", "Dates", "Tasbeeh", "Tasbeeh", "Tasbeeh", "Tasbeeh",
+             "Miswak", "Miswak", "Miswak", "Miswak", "Topi", "Topi", "Topi", "Topi"],
+    "Type": ["Ajwa", "Kalmi", "Sukri", "Medjool", "Type 1", "Type 2", "Type 3", "Type 4",
+             "Type 1", "Type 2", "Type 3", "Type 4", "Type 1", "Type 2", "Type 3", "Type 4"],
+    "Price per Unit (Rs)": [2, 2, 1, 3, 10, 12, 8, 14, 10, 12, 8, 14, 10, 15, 20, 25]
+}
+
+# Convert to DataFrame
+df = pd.DataFrame(data)
+
+# Display in Streamlit
+st.title("Price List of Items")
+st.table(df)
+
 st.header("Select Items for Each Packet")
 dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): st.number_input("Number of Dates", min_value=0, step=1)}
 tasbeeh = {st.selectbox("Select Tasbeeh Type", ["Tasbeeh Type 1", "Tasbeeh Type 2", "Tasbeeh Type 3", "Tasbeeh Type 4"]): st.number_input("Number of Tasbeeh", min_value=0, step=1)}
