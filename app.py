@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
-import math
 
-def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets):
+def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat):
     prices = {
         "Dates": {"Ajwa": 2, "Kalmi": 2, "Sukri": 1, "Medjool": 3},
         "Tasbih" : {"Type 1": 8, "Type 2": 10, "Type 3": 12, "Type 4": 14},
@@ -13,20 +12,27 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets)
     }
     
     total_cost = 0
-    for item, quantity in dates.items():
-        total_cost += prices["Dates"][item] * quantity
-    for item, quantity in tasbeeh.items():
-        total_cost += prices["Tasbih"][item] * quantity
-    for item, quantity in miswak.items():
-        total_cost += prices["Miswak"][item] * quantity
-    for item, quantity in topi.items():
-        total_cost += prices["Topi"][item] * quantity
-    for item, quantity in zamzam.items():
-        total_cost += prices["ZamZam"][item] * quantity
-    for item, quantity in mat.items():
-        total_cost += prices["Mat"][item] * quantity
-    total_cost += 45
-    return total_cost * num_packets * 1.18
+    for item, detail in dates.items():
+        total_cost += prices["Dates"][item] * detail[0] * detail[1]
+    for item, detail in tasbeeh.items():
+        total_cost += prices["Tasbih"][item] * detail[0] * detail[1]
+    for item, detail in miswak.items():
+        total_cost += prices["Miswak"][item] * detail[0] * detail[1]
+    for item, detail in topi.items():
+        total_cost += prices["Topi"][item] * detail[0] * detail[1]
+    for item, detail in zamzam.items():
+        total_cost += prices["ZamZam"][item] * detail[0] * detail[1]
+    for item, detail in mat.items():
+        total_cost += prices["Mat"][item] * detail[0] * detail[1]
+    
+    packaging = 10
+    labor = 5
+    margin = 20
+    misc = 5
+
+    total_cost  = (total_cost+packaging+labor+misc+margin)*1.18
+    
+    return total_cost
 
 st.title("Hajj/Umrah Gift Cost Calculator")
 
@@ -59,29 +65,44 @@ data = {
     
 items = ["ZamZam","Dates","Tasbih","Miswak","Topi","Mat"]
 
-col1, col2 = st.columns([1,2],gap="medium",border=True)
+num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1)
 
-with col1:
-    st.header("Price List of Items")
-    for i in range(len(items)):
-        d = data[items[i]]
-        df = pd.DataFrame(d)
-        # Convert to DataFrame
-        st.subheader(items[i])
-        # st.table(df)
-        st.dataframe(df,hide_index=True)
 
-with col2:
-    st.header("Select Items for Each Packet")
-    dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): st.number_input("Number of Dates", min_value=0, step=1)}
-    zamzam = {st.selectbox("Select Zamzam Bottle Quantity", ["50 ml", "100 ml"]): st.number_input("Number of Bottles", min_value=0, step=1)}
-    tasbeeh = {st.selectbox("Select Tasbeeh Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Tasbeeh", min_value=0, step=1)}
-    miswak = {st.selectbox("Select Miswak Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Miswak", min_value=0, step=1)}
-    topi = {st.selectbox("Select Topi Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Topi", min_value=0, step=1)}
-    mat = {st.selectbox("Select Prayer Mat Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): st.number_input("Number of Mats", min_value=0, step=1)}
+df = pd.DataFrame(data["ZamZam"])
+st.subheader("ZamZam", divider=True)
+st.dataframe(df,hide_index=True)
+zamzam = {st.selectbox("Select Zamzam Bottle Quantity", ["50 ml", "100 ml"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
 
-    num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1)
 
-    if st.button("Calculate Total Cost"):
-        total_cost = calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, num_packets)
-        st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
+df = pd.DataFrame(data["Dates"])
+st.subheader("Dates", divider=True)
+st.dataframe(df,hide_index=True)
+dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
+
+df = pd.DataFrame(data["Tasbih"])
+st.subheader("Tasbih", divider=True)
+st.dataframe(df,hide_index=True)
+tasbih = {st.selectbox("Select Tasbeeh Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
+
+df = pd.DataFrame(data["Miswak"])
+st.subheader("Miswak", divider=True)
+st.dataframe(df,hide_index=True)
+miswak = {st.selectbox("Select Miswak Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
+
+df = pd.DataFrame(data["Topi"])
+st.subheader("Topi", divider=True)
+st.dataframe(df,hide_index=True)
+topi = {st.selectbox("Select Topi Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
+
+df = pd.DataFrame(data["Mat"])
+st.subheader("Prayer Mat", divider=True)
+st.dataframe(df,hide_index=True)
+mat = {st.selectbox("Select Prayer Mat Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1),st.number_input("Number of Packets Required", min_value=1, step=1, value=num_packets)]}
+
+  
+
+    
+
+if st.button("Calculate Total Cost"):
+    total_cost = calculate_total_cost(dates, tasbih, miswak, topi, zamzam, mat)
+    st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
