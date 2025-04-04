@@ -35,7 +35,7 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat):
     return total_cost
 
 st.title("Hajj/Umrah Gift Cost Calculator")
-
+st.divider()
 data = {
     "ZamZam" : {
         "Type": ["50 ml", "100 ml"],
