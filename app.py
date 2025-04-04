@@ -65,37 +65,37 @@ data = {
     
 items = ["ZamZam","Dates","Tasbih","Miswak","Topi","Mat"]
 
-num_packets = st.number_input("Number of Gift Packets", min_value=1, step=1, key=1)
+num_packets = st.number_input("Number of Gift Packets", min_value=0, step=1, key=1)
 
 
 df = pd.DataFrame(data["ZamZam"])
-st.subheader("ZamZam", divider=True)
+st.subheader("ZamZam", divider="gray")
 st.dataframe(df,hide_index=True)
 zamzam = {st.selectbox("Select Zamzam Bottle Quantity", ["50 ml", "100 ml"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
 
 
 df = pd.DataFrame(data["Dates"])
-st.subheader("Dates", divider=True)
+st.subheader("Dates", divider="gray")
 st.dataframe(df,hide_index=True)
 dates = {st.selectbox("Select Date Type", ["Ajwa", "Kalmi", "Sukri", "Medjool"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=4),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets,key=5)]}
 
 df = pd.DataFrame(data["Tasbih"])
-st.subheader("Tasbih", divider=True)
+st.subheader("Tasbih", divider="gray")
 st.dataframe(df,hide_index=True)
 tasbih = {st.selectbox("Select Tasbeeh Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=6),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=7)]}
 
 df = pd.DataFrame(data["Miswak"])
-st.subheader("Miswak", divider=True)
+st.subheader("Miswak", divider="gray")
 st.dataframe(df,hide_index=True)
 miswak = {st.selectbox("Select Miswak Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=8),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=9)]}
 
 df = pd.DataFrame(data["Topi"])
-st.subheader("Topi", divider=True)
+st.subheader("Topi", divider="gray")
 st.dataframe(df,hide_index=True)
 topi = {st.selectbox("Select Topi Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=10),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=11)]}
 
 df = pd.DataFrame(data["Mat"])
-st.subheader("Prayer Mat", divider=True)
+st.subheader("Prayer Mat", divider="gray")
 st.dataframe(df,hide_index=True)
 mat = {st.selectbox("Select Prayer Mat Type", ["Type 1", "Type 2", "Type 3", "Type 4"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=12),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=13)]}
 
