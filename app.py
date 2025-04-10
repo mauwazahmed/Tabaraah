@@ -32,7 +32,7 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, itar):
     labor = 5
     margin = 20
 
-    total_cost  = (total_cost+packaging+labor+misc+margin)
+    total_cost  = (total_cost+packaging+labor+margin)
 
     return total_cost
 
@@ -113,7 +113,7 @@ st.dataframe(df,hide_index=True)
 mat = {st.selectbox("Select Prayer Mat Type", data["Mat"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=12),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=13)]}
 
 df = pd.DataFrame(data["Itar"])
-st.subheader("Prayer Mat")
+st.subheader("Itar")
 st.dataframe(df,hide_index=True)
 itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=14),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=15)]}
 
