@@ -116,7 +116,7 @@ mat = {st.selectbox("Select Prayer Mat Type", data["Mat"]["Type"]): [st.number_i
 df = pd.DataFrame(data["Itar"])
 st.subheader("Prayer Mat")
 st.dataframe(df,hide_index=True)
-itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=12),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=13)]}
+itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=13),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=13)]}
 
   
 
