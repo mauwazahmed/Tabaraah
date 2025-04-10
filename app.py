@@ -31,9 +31,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, mat, itar):
     packaging = 10
     labor = 5
     margin = 20
-    misc = 5
 
-    total_cost  = (total_cost+packaging+labor+misc+margin)*1.18
+    total_cost  = (total_cost+packaging+labor+misc+margin)
 
     return total_cost
 
@@ -116,7 +115,7 @@ mat = {st.selectbox("Select Prayer Mat Type", data["Mat"]["Type"]): [st.number_i
 df = pd.DataFrame(data["Itar"])
 st.subheader("Prayer Mat")
 st.dataframe(df,hide_index=True)
-itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=13),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=13)]}
+itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=14),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=15)]}
 
   
 
@@ -124,4 +123,4 @@ st.divider()
 
 if st.button("Calculate Total Cost"):
     total_cost = calculate_total_cost(dates, tasbih, miswak, topi, zamzam, mat, itar)
-    st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
+    st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable). With GST: Rs. {total_cost*1.18}")
