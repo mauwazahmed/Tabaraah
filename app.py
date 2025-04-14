@@ -7,8 +7,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam_b, zamzam_f, mat, 
         "Tasbih" : {"Type 1": 12, "Type 2": 17, "Type 3": 20, "Type 4": 25},
         "Miswak" : {"Type 1": 12, "Type 2": 18},
         "Topi" : {"Type 1": 20, "Type 2": 25, "Type 3": 30},
-        "ZamZam (Bottle Only)" : {"Pink 100ml":6, "Pink 60ml" : 5, "Green 60ml" : 2.5},
-        "ZamZam (Filled)" : {"Pink 100ml":40, "Pink 60ml" : 30, "Green 60ml" : 27},
+        "ZamZam Empty" : {"Pink 100ml":6, "Pink 60ml" : 5, "Green 60ml" : 2.5},
+        "ZamZam Filled" : {"Pink 100ml":40, "Pink 60ml" : 30, "Green 60ml" : 27},
         "Mat" : {"Type 1": 150, "Type 2": 180, "Type 3": 220, "Type 4": 300},
         "Itar" : {"Type 1": 10, "Type 2": 15, "Type 3": 20}
     }
@@ -23,9 +23,9 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam_b, zamzam_f, mat, 
     for item, detail in topi.items():
         total_cost += prices["Topi"][item] * detail[0] * detail[1]
     for item, detail in zamzam_b.items():
-        total_cost += prices["ZamZam (Bottle Only)"][item] * detail[0] * detail[1]
+        total_cost += prices["ZamZam Empty"][item] * detail[0] * detail[1]
     for item, detail in zamzam_f.items():
-        total_cost += prices["ZamZam (Filled)"][item] * detail[0] * detail[1]
+        total_cost += prices["ZamZam Filled"][item] * detail[0] * detail[1]
     for item, detail in mat.items():
         total_cost += prices["Mat"][item] * detail[0] * detail[1]
     for item, detail in itar.items():
