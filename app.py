@@ -43,9 +43,13 @@ st.title("Hajj/Umrah Gift Cost Calculator")
 st.divider()
 
 data = {
-    "ZamZam" : {
+    "ZamZam Empty" : {
         "Type": ["Pink 100ml", "Pink 60ml", "Green 60ml"],
         "Price per Unit (Rs)": [6, 5, 2.5]
+    },
+    "ZamZam Filled" : {
+        "Type": ["Pink 100ml", "Pink 60ml", "Green 60ml"],
+        "Price per Unit (Rs)": [40, 30, 27]
     },
     "Dates" : {
         "Type": [ "Ajwa", "Kalmi", "Sukri", "Mabroom"],
@@ -82,8 +86,8 @@ st.divider()
 df = pd.DataFrame(data["ZamZam"])
 st.subheader("ZamZam")
 st.dataframe(df,hide_index=True)
-zamzam_b = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
-zamzam_f = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=40),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 41)]}
+zamzam_b = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam Empty"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
+zamzam_f = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam Filled"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=40),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 41)]}
 st.divider()    
 
 
