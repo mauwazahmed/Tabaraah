@@ -83,7 +83,7 @@ df = pd.DataFrame(data["ZamZam"])
 st.subheader("ZamZam")
 st.dataframe(df,hide_index=True)
 zamzam_b = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
-zamzam_f = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=-2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = -3)]}
+zamzam_f = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=40),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 41)]}
 st.divider()    
 
 
