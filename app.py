@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
+def calculate_total_cost(num_packets, dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
     prices = {
         "Dates": {"Ajwa": 9, "Kalmi": 7, "Sukri": 5, "Rushdi": 3},
         "Tasbih" : {"Type 1": 12, "Type 2": 17, "Type 3": 20, "Type 4": 25},
@@ -29,11 +29,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
     for item, detail in itar.items():
         total_cost += prices["Itar"][item] * detail[0] * detail[1]
     
-    packaging = 15
-    # labor = 5
-    # margin = 20
-
-    total_cost  = (total_cost+packaging)
+    packaging = num_packets*15
+    total_cost  = (total_cost+packagin)
 
     return total_cost
 
@@ -125,5 +122,5 @@ itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number
 st.divider()    
 
 if st.button("Calculate Total Cost"):
-    total_cost = calculate_total_cost(dates, tasbih, miswak, topi, zamzam, f_b, mat, itar)
+    total_cost = calculate_total_cost(num_packets, dates, tasbih, miswak, topi, zamzam, f_b, mat, itar)
     st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
