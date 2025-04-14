@@ -83,7 +83,8 @@ num_packets = st.number_input("Number of Gift Packets", min_value=0, step=1, key
 st.divider()    
 
 
-df = pd.DataFrame(data["ZamZam"])
+df = pd.DataFrame(data["ZamZam Empty"])
+df['Filled Bottle'] = data['ZamZam Filled']["Price per Unit (Rs)"]
 st.subheader("ZamZam")
 st.dataframe(df,hide_index=True)
 zamzam_b = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam Empty"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
