@@ -29,11 +29,11 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
     for item, detail in itar.items():
         total_cost += prices["Itar"][item] * detail[0] * detail[1]
     
-    packaging = 10
-    labor = 5
-    margin = 20
+    packaging = 15
+    # labor = 5
+    # margin = 20
 
-    total_cost  = (total_cost+packaging+labor+margin)
+    total_cost  = (total_cost+packaging)
 
     return total_cost
 
