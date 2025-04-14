@@ -47,8 +47,8 @@ data = {
         "Filled Bottle (price per unit)": [40, 30, 27]
     },
     "Dates" : {
-        "Type": [ "Ajwa", "Kalmi", "Sukri", "Mabroom"],
-        "Price per Unit (Rs)": [6, 6, 6, 4]
+        "Type": [ "Ajwa", "Kalmi", "Sukri", "Rushdi"],
+        "Price per Unit (Rs)": [9, 7, 5, 3]
     },
     "Tasbih" : {
         "Type":  ["Type 1", "Type 2", "Type 3", "Type 4"],
