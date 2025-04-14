@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam_b, zamzam_f, mat, itar):
+def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
     prices = {
         "Dates": {"Ajwa": 9, "Kalmi": 7, "Sukri": 5, "Rushdi": 3},
         "Tasbih" : {"Type 1": 12, "Type 2": 17, "Type 3": 20, "Type 4": 25},
@@ -22,10 +22,8 @@ def calculate_total_cost(dates, tasbeeh, miswak, topi, zamzam_b, zamzam_f, mat, 
         total_cost += prices["Miswak"][item] * detail[0] * detail[1]
     for item, detail in topi.items():
         total_cost += prices["Topi"][item] * detail[0] * detail[1]
-    for item, detail in zamzam_b.items():
-        total_cost += prices["ZamZam Empty"][item] * detail[0] * detail[1]
-    for item, detail in zamzam_f.items():
-        total_cost += prices["ZamZam Filled"][item] * detail[0] * detail[1]
+    for item, detail in zamzam.items():
+        total_cost += prices[f"ZamZam {f_b}"][item] * detail[0] * detail[1]
     for item, detail in mat.items():
         total_cost += prices["Mat"][item] * detail[0] * detail[1]
     for item, detail in itar.items():
@@ -43,13 +41,10 @@ st.title("Hajj/Umrah Gift Cost Calculator")
 st.divider()
 
 data = {
-    "ZamZam Empty" : {
+    "ZamZam" : {
         "Type": ["Pink 100ml", "Pink 60ml", "Green 60ml"],
-        "Price per Unit (Rs)": [6, 5, 2.5]
-    },
-    "ZamZam Filled" : {
-        "Type": ["Pink 100ml", "Pink 60ml", "Green 60ml"],
-        "Price per Unit (Rs)": [40, 30, 27]
+        "Empty Bottle (price per unit)": [6, 5, 2.5],
+        "Filled Bottle (price per unit)": [40, 30, 27]
     },
     "Dates" : {
         "Type": [ "Ajwa", "Kalmi", "Sukri", "Mabroom"],
@@ -83,12 +78,11 @@ num_packets = st.number_input("Number of Gift Packets", min_value=0, step=1, key
 st.divider()    
 
 
-df = pd.DataFrame(data["ZamZam Empty"])
-df['Filled Bottle'] = data['ZamZam Filled']["Price per Unit (Rs)"]
+df = pd.DataFrame(data["ZamZam"])
 st.subheader("ZamZam")
 st.dataframe(df,hide_index=True)
-zamzam_b = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam Empty"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
-zamzam_f = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam Filled"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=40),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 41)]}
+f_b = st.selectbox("Do you want empty or filled bottles?", ['Empty','Filled'], key = 25)
+zamzam = {st.selectbox("Select Zamzam Bottle Quantity", data["ZamZam"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=2),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key = 3)]}
 st.divider()    
 
 
@@ -131,5 +125,5 @@ itar = {st.selectbox("Select Prayer Mat Type", data["Itar"]["Type"]): [st.number
 st.divider()    
 
 if st.button("Calculate Total Cost"):
-    total_cost = calculate_total_cost(dates, tasbih, miswak, topi, zamzam_b, zamzam_f, mat, itar)
+    total_cost = calculate_total_cost(dates, tasbih, miswak, topi, zamzam, f_b, mat, itar)
     st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
