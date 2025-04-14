@@ -30,7 +30,7 @@ def calculate_total_cost(num_packets, dates, tasbeeh, miswak, topi, zamzam, f_b,
         total_cost += prices["Itar"][item] * detail[0] * detail[1]
     
     packaging = num_packets*15
-    total_cost  = (total_cost+packagin)
+    total_cost  = (total_cost+packaging)
 
     return total_cost
 
