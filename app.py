@@ -48,7 +48,7 @@ data = {
         "Price per Unit (Rs)": [9, 7, 5, 3]
     },
     "Tasbih" : {
-        "Type":  ["Type 1", "Type 2", "Type 3", , "Type 5"],
+        "Type":  ["Type 1", "Type 2", "Type 3", "Type 4", "Type 5"],
         "Price per Unit (Rs)": [10, 20, 25, 35, 50]
     },
     "Miswak" : {
