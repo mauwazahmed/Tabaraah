@@ -132,4 +132,5 @@ st.divider()
 
 if st.button("Calculate Total Cost"):
     total_cost = calculate_total_cost(num_packets, dates, tasbih, miswak, topi, zamzam, f_b, mat, itar, pkt)
-    st.success(f"Total Cost (excl GST): Rs {total_cost} \n Total Cost (GST incl): Rs {total_cost*1.18} \n + Delivery Charges (as applicable)")
+    st.success(f"Total Cost (excl GST): Rs {total_cost} + Delivery Charges (as applicable)")
+    st.success(f"Total Cost (incl GST): Rs {total_cost*1.18} + Delivery Charges (as applicable)")
