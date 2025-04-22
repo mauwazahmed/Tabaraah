@@ -1,16 +1,17 @@
 import streamlit as st
 import pandas as pd
 
-def calculate_total_cost(num_packets, dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar):
+def calculate_total_cost(num_packets, dates, tasbeeh, miswak, topi, zamzam, f_b, mat, itar, pkt):
     prices = {
         "Dates": {"Ajwa": 9, "Kalmi": 7, "Sukri": 5, "Rushdi": 3},
-        "Tasbih" : {"Type 1": 12, "Type 2": 17, "Type 3": 20, "Type 4": 25},
-        "Miswak" : {"Type 1": 12, "Type 2": 18},
-        "Topi" : {"Type 1": 20, "Type 2": 25, "Type 3": 30},
+        "Tasbih" : {"Type 1": 10, "Type 2": 20, "Type 3": 25, "Type 4": 35,"Type 5": 50},
+        "Miswak" : {"Type 1": 15, "Type 2": 20},
+        "Topi" : {"Type 1": 20, "Type 2": 25, "Type 3": 30, "Type 4": 80},
         "ZamZam Empty" : {"Pink 100ml":6, "Pink 60ml" : 5, "Green 60ml" : 2.5},
         "ZamZam Filled" : {"Pink 100ml":40, "Pink 60ml" : 30, "Green 60ml" : 27},
-        "Mat" : {"Type 1": 150, "Type 2": 180, "Type 3": 220, "Type 4": 300},
-        "Itar" : {"Type 1": 10, "Type 2": 15, "Type 3": 20}
+        "Mat" : {"Type 1": 100, "Type 2": 150, "Type 3": 200},
+        "Itar" : {"Type 1": 15, "Type 2": 20, "Type 3": 25},
+        "Packaging" : {"Type 1": 1, "Type 2": 30, "Type 3": 50}
     }
     
     total_cost = 0
@@ -28,10 +29,9 @@ def calculate_total_cost(num_packets, dates, tasbeeh, miswak, topi, zamzam, f_b,
         total_cost += prices["Mat"][item] * detail[0] * detail[1]
     for item, detail in itar.items():
         total_cost += prices["Itar"][item] * detail[0] * detail[1]
+    for item, detail in pkt.items():
+        total_cost += prices["Packaging"][item] * detail[0] * detail[1]
     
-    packaging = num_packets*15
-    total_cost  = (total_cost+packaging)
-
     return total_cost
 
 st.title("Hajj/Umrah Gift Cost Calculator")
@@ -48,24 +48,28 @@ data = {
         "Price per Unit (Rs)": [9, 7, 5, 3]
     },
     "Tasbih" : {
-        "Type":  ["Type 1", "Type 2", "Type 3", "Type 4"],
-        "Price per Unit (Rs)": [10, 15, 17, 20]
+        "Type":  ["Type 1", "Type 2", "Type 3", , "Type 5"],
+        "Price per Unit (Rs)": [10, 20, 25, 35, 50]
     },
     "Miswak" : {
         "Type": ["Type 1", "Type 2"],
-        "Price per Unit (Rs)": [10, 15]
+        "Price per Unit (Rs)": [15, 20]
     },
     "Topi" : {
         "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
-        "Price per Unit (Rs)": [15, 17, 20, 25]
+        "Price per Unit (Rs)": [20, 25, 30, 80]
     },
     "Mat" : {
-        "Type": ["Type 1", "Type 2", "Type 3", "Type 4"],
-        "Price per Unit (Rs)": [120, 150, 200, 250]
+        "Type": ["Type 1", "Type 2", "Type 3"],
+        "Price per Unit (Rs)": [100, 150, 200]
     },
     "Itar" : {
         "Type": ["Type 1", "Type 2", "Type 3"],
-        "Price per Unit (Rs)": [10, 15, 20]
+        "Price per Unit (Rs)": [15, 20, 25]
+    },
+    "Packaging" : {
+        "Type": ["Type 1", "Type 2", "Type 3"],
+        "Price per Unit (Rs)": [1, 30, 50]
     }
 }
     
@@ -117,10 +121,15 @@ st.subheader("Itar")
 st.dataframe(df,hide_index=True)
 itar = {st.selectbox("Select Itar Type", data["Itar"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=0, step=1, key=14),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=15)]}
 
-  
+df = pd.DataFrame(data["Packaging"])
+st.subheader("Packaging")
+st.dataframe(df,hide_index=True)
+pkt = {st.selectbox("Select Packaging Type", data["Packaging"]["Type"]): [st.number_input("Number of Units in One Packet", min_value=1, step=1, value=1, key=16),st.number_input("Number of Packets Required", min_value=0, step=1, value=num_packets, key=17)]}
+
+
 
 st.divider()    
 
 if st.button("Calculate Total Cost"):
-    total_cost = calculate_total_cost(num_packets, dates, tasbih, miswak, topi, zamzam, f_b, mat, itar)
-    st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)")
+    total_cost = calculate_total_cost(num_packets, dates, tasbih, miswak, topi, zamzam, f_b, mat, itar, pkt)
+    st.success(f"Total Cost: Rs {total_cost} + Delivery Charges (as applicable)",f"Total Cost (GST incl): Rs {total_cost*1.18} + Delivery Charges (as applicable)")
